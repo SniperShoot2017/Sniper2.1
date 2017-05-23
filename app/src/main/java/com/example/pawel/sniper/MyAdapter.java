@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +32,13 @@ public class MyAdapter extends RecyclerView.Adapter
 
     static List<String> nameProject = new ArrayList<String>();
     static List<String> descriptionProject = new ArrayList<String>();
+    static List<String> urlPic = new ArrayList<String>();
+    public static ImageView imageView ;
 
     public Context context;
     // źródło danych
     private List<String> items = new ArrayList<>();
-    ImageView imageView ;
+
     // obiekt listy artykułów
     private RecyclerView mRecyclerView;
 
@@ -49,8 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter
             context = pItem.getContext();
             mTitle = (TextView) pItem.findViewById(R.id.numberOfUser);
             mContent = (TextView) pItem.findViewById(R.id.userName);
-            imageView= (ImageView) pItem.findViewById(R.id.imageView);
-
+            imageView = (ImageView) pItem.findViewById(R.id.iV);
         }
     }
 
@@ -58,6 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter
     public MyAdapter(List<String> pArticles, RecyclerView pRecyclerView){
         items = pArticles;
         mRecyclerView = pRecyclerView;
+        urlPic = Tab1Users.urlPic;
     }
 
     @Override
@@ -144,12 +149,19 @@ public class MyAdapter extends RecyclerView.Adapter
         // uzupełniamy layout artykułu
         ((MyViewHolder) viewHolder).mTitle.setText(items.get(i));
 
-//        Glide.with(context)
-//                .load("https://avatars1.githubusercontent.com/u/4482555?v=3")
-//                .override(160, 132)
-//                .into(imageView);
+            Glide.with(viewHolder.itemView.getContext())
+                    .load(urlPic.get(i))
+                    .override(160, 132)
+                    .crossFade()
+                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                    .into(imageView);
 
-        //((MyViewHolder) viewHolder).mContent.setText(i);
+
+
+           // Glide.clear(imageView);
+            // remove the placeholder (optional); read comments below
+           // imageView.setImageDrawable(null);
+
     }
 
     @Override

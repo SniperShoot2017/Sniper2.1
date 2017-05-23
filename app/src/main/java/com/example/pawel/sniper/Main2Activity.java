@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class Main2Activity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
 
         context = getApplicationContext();
@@ -35,7 +37,15 @@ public class Main2Activity extends AppCompatActivity {
 
         // tworzymy adapter oraz łączymy go z RecyclerView
 
-        recyclerView.setAdapter(new MyAdapter(Tab1Users.nameAllUsers, recyclerView));
+//        recyclerView.addOnScrollListener(new OnScrollListener() {
+//                                             @Override
+//                                             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                                                 super.onScrollStateChanged(recyclerView, newState);
+//                                             }
+//                                         }
+
+
+                recyclerView.setAdapter(new MyAdapter(Tab1Users.nameAllUsers, recyclerView));
 
 
     }

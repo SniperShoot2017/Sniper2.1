@@ -79,7 +79,6 @@ public class AdapterForRepo extends RecyclerView.Adapter
 
         ((MyViewHolder) viewHolder).mContent.setText(items.get(i));
         ((MyViewHolder) viewHolder).mTitle.setText(description.get(i));
-
     }
 
     @Override

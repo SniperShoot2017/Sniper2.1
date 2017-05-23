@@ -31,6 +31,7 @@ public class Tab1Users  extends Fragment
 {
     Button btn ;
     static List<String> nameAllUsers = new ArrayList<String>();
+    static List<String> urlPic = new ArrayList<String>();
     public EditText editText;
     ProgressBar secondBar = null;
 
@@ -99,12 +100,14 @@ public class Tab1Users  extends Fragment
                             case 1:
                                 it = items.get(0);
                                 nameAllUsers.add(it.getLogin());
+                                urlPic.add(it.getAvatarUrl());
                                 break;
 
                             default:
                                 for (int i = 0; i < userSelection.getItems().size(); i++) {
                                     it = items.get(i);
                                     nameAllUsers.add(it.getLogin());
+                                    urlPic.add(it.getAvatarUrl());
                                 }
                                 break;
                         }
