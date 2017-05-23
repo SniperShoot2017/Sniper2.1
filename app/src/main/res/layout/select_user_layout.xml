@@ -8,6 +8,12 @@
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="5dp">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="160dp"
+        android:layout_height="132dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,12 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="right"
-            android:text="Subtitle"
+            android:text=""
             android:textColor="#888"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/numberOfUser"
+            android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right|center_vertical"
@@ -35,12 +42,6 @@
 
 
     </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="160dp"
-        android:layout_height="132dp" />
 
 
 </android.support.v7.widget.CardView>
