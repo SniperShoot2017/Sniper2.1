@@ -12,6 +12,9 @@ public interface MyWebService
     @GET("/search/{endpoint}")
     void getData(@EncodedPath("endpoint")String pEndpoint, Callback<UserSelection> pResponse);
 
+    @GET("/search/{endpoint}")
+    void getPro(@EncodedPath("endpoint")String pEndpoint, Callback<Proj> pResponse);
+
     @GET("/users/{endpoint}/repos")
     void getRepos(@EncodedPath("endpoint")String pEndpoint, Callback<List<repoSource>> pResponse);
 

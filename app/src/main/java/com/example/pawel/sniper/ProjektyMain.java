@@ -1,15 +1,13 @@
 package com.example.pawel.sniper;
 
 import android.content.Context;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
 
-public class Main2Activity extends AppCompatActivity {
+public class ProjektyMain extends AppCompatActivity {
 
     Context context;
 
@@ -35,15 +33,6 @@ public class Main2Activity extends AppCompatActivity {
 
         // tworzymy adapter oraz łączymy go z RecyclerView
 
-//        recyclerView.addOnScrollListener(new OnScrollListener() {
-//                                             @Override
-//                                             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                                                 super.onScrollStateChanged(recyclerView, newState);
-//                                             }
-//                                         }
-
-        recyclerView.setAdapter(new MyAdapter(Tab1Users.nameAllUsers, recyclerView));
-
-
+        recyclerView.setAdapter(new Adapter3(recyclerView));
     }
 }
