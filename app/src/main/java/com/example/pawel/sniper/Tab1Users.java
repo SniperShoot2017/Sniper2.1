@@ -33,6 +33,7 @@ public class Tab1Users  extends Fragment
     static List<String> nameAllUsers = new ArrayList<String>();
     static List<String> urlPic = new ArrayList<String>();
     public EditText editText;
+
     ProgressBar secondBar = null;
 
     @Override
@@ -73,19 +74,22 @@ public class Tab1Users  extends Fragment
                 myWebService = retrofit.create(MyWebService.class);
 
                 //obsluga przyciskow ekranu
-
-                final String userName = "users?q="+ editText.getText().toString();
+                    String userName = null;
+                     userName = "users?q="+ editText.getText().toString();
 
                 myWebService.getData(userName, new Callback<UserSelection>() {
                     @Override
                     public void success(UserSelection userSelection, Response response)
                     {
+                        List<Item> items = null;
                         int totalCount = userSelection.getTotalCount();
-                        List<Item> items = new ArrayList<Item>();
+                        items = new ArrayList<Item>();
                         items = userSelection.getItems();
 
-                        Item ite = items.get(0);
-                        String asd = ite.getLogin();
+                        Item ite  = null  ;
+                        ite = items.get(0);
+                        String asd = null;
+                        ite.getLogin();
 
                         Item it = null;
                         switch (totalCount) {
