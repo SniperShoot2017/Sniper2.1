@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,25 +145,28 @@ public class MyAdapter extends RecyclerView.Adapter
         return new MyViewHolder(view);
     }
 
+    public void bindView(int i)
+    {
+        Picasso.with(context).load(urlPic.get(i))
+                .into(imageView);
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         // uzupełniamy layout artykułu
         ((MyViewHolder) viewHolder).mTitle.setText(items.get(i));
 
-            Glide.with(viewHolder.itemView.getContext())
-                    .load(urlPic.get(i))
-                    .override(160, 132)
-                    .crossFade()
-                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                    .into(imageView);
-
-
-
-           // Glide.clear(imageView);
-            // remove the placeholder (optional); read comments below
-           // imageView.setImageDrawable(null);
-
+//            Glide.with(viewHolder.itemView.getContext())
+//                    .load(urlPic.get(i))
+//                    .override(160, 132)
+//                    .crossFade()
+//                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+//                    .into(imageView);
+        try {
+            bindView(i);
+        } catch(Exception e) {e.printStackTrace();}
     }
+
 
     @Override
     public int getItemCount() {

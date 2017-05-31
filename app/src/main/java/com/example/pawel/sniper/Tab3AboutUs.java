@@ -11,7 +11,7 @@ public class Tab3AboutUs extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_aboutus, container, false);
-        
+
         return rootView;
     }
 }
