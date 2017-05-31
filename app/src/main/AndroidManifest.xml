@@ -25,12 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Main2Activity"
+            android:name=".recycler_view_model.RecycleForUsers"
             android:parentActivityName=".MainActivity"></activity>
         <activity
-            android:name=".specificationAboutUserProject"
-            android:parentActivityName=".Main2Activity" />
-        <activity android:name=".ProjektyMain"  android:parentActivityName=".MainActivity" ></activity>
+            android:name=".recycler_view_model.RecycleForProject"
+            android:parentActivityName=".recycler_view_model.RecycleForUsers" />
+        <activity android:name=".recycler_view_model.RecycleForProjectTab2"  android:parentActivityName=".MainActivity" ></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,12 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.retrofit;
+
+import com.example.pawel.sniper.retrofit.pojo.Proj;
+import com.example.pawel.sniper.retrofit.pojo.UserSelection;
+import com.example.pawel.sniper.retrofit.pojo.repoSource;
 
 import java.util.List;
 
 import retrofit.Callback;
-import retrofit.http.Body;
 import retrofit.http.EncodedPath;
 import retrofit.http.GET;
 

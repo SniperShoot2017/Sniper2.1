@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pawel.sniper.Main2Activity">
+    tools:context="com.example.pawel.sniper.recycler_view_model.RecycleForUsers">
 
 </android.support.constraint.ConstraintLayout>

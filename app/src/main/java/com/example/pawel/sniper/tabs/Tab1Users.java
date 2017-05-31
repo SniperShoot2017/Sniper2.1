@@ -1,7 +1,9 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.tabs;
+
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.pawel.sniper.recycler_view_model.RecycleForUsers;
+import com.example.pawel.sniper.R;
+import com.example.pawel.sniper.retrofit.pojo.UserSelection;
+import com.example.pawel.sniper.retrofit.pojo.Item;
+import com.example.pawel.sniper.retrofit.MyWebService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +28,26 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static com.example.pawel.sniper.MyAdapter.urlPic;
-import static com.example.pawel.sniper.Tab1Users.nameAllUsers;
-
-public class Tab2Projects  extends android.support.v4.app.Fragment
+public class Tab1Users  extends Fragment
 {
-
     Button btn ;
-    static List<String> login = new ArrayList<String>();
-    static List<String> name = new ArrayList<String>();
+    public static List<String> nameAllUsers = new ArrayList<String>();
+    public static List<String> urlPic = new ArrayList<String>();
     public EditText editText;
+
     ProgressBar secondBar = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab2_project, container, false);
+                             Bundle savedInstanceState)
+    {
+        View rootView = inflater.inflate(R.layout.tab1_users, container, false);
 
-        btn = (Button)rootView.findViewById(R.id.szukaj);
-        editText = (EditText)rootView.findViewById(R.id.eT2);
-        secondBar = (ProgressBar)rootView.findViewById(R.id.pb2);
+        btn = (Button)rootView.findViewById(R.id.zatwierdz);
+        editText = (EditText)rootView.findViewById(R.id.userName);
+        secondBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
 
-        btn.findViewById(R.id.szukaj).setOnClickListener(new View.OnClickListener()
+        btn.findViewById(R.id.zatwierdz).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -69,22 +75,27 @@ public class Tab2Projects  extends android.support.v4.app.Fragment
                 myWebService = retrofit.create(MyWebService.class);
 
                 //obsluga przyciskow ekranu
+                    String userName = null;
+                     userName = "users?q="+ editText.getText().toString();
 
-                final String userName = "repositories?q="+ editText.getText().toString();
+                nameAllUsers.clear();
+                urlPic.clear();
 
-                myWebService.getPro(userName, new Callback<Proj>() {
+                myWebService.getData(userName, new Callback<UserSelection>() {
                     @Override
-                    public void success(Proj proj, Response response)
+                    public void success(UserSelection userSelection, Response response)
                     {
-                        int totalCount = proj.getTotalCount();
-                        List<ProjItem> items = new ArrayList<ProjItem>();
-                        items = proj.getItems();
+                        List<Item> items = null;
+                        int totalCount = userSelection.getTotalCount();
+                        items = new ArrayList<Item>();
+                        items = userSelection.getItems();
 
-                        ProjItem ite = items.get(0);
-                        String asd = ite.getName();
+                        Item ite  = null  ;
+                        ite = items.get(0);
+                        String asd = null;
+                        ite.getLogin();
 
-                        Owner it = null;
-                        it = ite.getOwner();
+                        Item it = null;
                         switch (totalCount) {
                             case 0:
                                 Context context = getActivity();
@@ -95,21 +106,21 @@ public class Tab2Projects  extends android.support.v4.app.Fragment
                                 break;
 
                             case 1:
-                                name.add(ite.getName());
-                                login.add(it.getLogin());
+                                it = items.get(0);
+                                nameAllUsers.add(it.getLogin());
+                                urlPic.add(it.getAvatarUrl());
                                 break;
 
                             default:
-                                for (int i = 0; i < items.size(); i++) {
-                                    ite = items.get(i);
-                                    it = ite.getOwner();
-                                    name.add(ite.getName());
-                                    login.add(it.getLogin());
+                                for (int i = 0; i < userSelection.getItems().size(); i++) {
+                                    it = items.get(i);
+                                    nameAllUsers.add(it.getLogin());
+                                    urlPic.add(it.getAvatarUrl());
                                 }
                                 break;
                         }
                         turnOnProcessBar(false);
-                        Intent intent = new Intent(getActivity(), ProjektyMain.class);
+                        Intent intent = new Intent(getActivity(), RecycleForUsers.class);
                         startActivity(intent);
                     }
                     @Override
@@ -119,7 +130,6 @@ public class Tab2Projects  extends android.support.v4.app.Fragment
                 });
             }
         });
-
         return rootView;
     }
 
@@ -132,6 +142,6 @@ public class Tab2Projects  extends android.support.v4.app.Fragment
         else  secondBar.setVisibility(View.GONE);
     }
 
-
-
 }
+
+

@@ -1,10 +1,11 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.retrofit.pojo;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserSelection {
+public class Proj {
 
     @SerializedName("total_count")
     @Expose
@@ -14,7 +15,7 @@ public class UserSelection {
     private Boolean incompleteResults;
     @SerializedName("items")
     @Expose
-    private List<Item> items = null;
+    private List<ProjItem> items = null;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -32,12 +33,11 @@ public class UserSelection {
         this.incompleteResults = incompleteResults;
     }
 
-    public List<Item> getItems() {
+    public List<ProjItem> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<ProjItem> items) {
         this.items = items;
     }
-
 }

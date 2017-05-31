@@ -1,30 +1,21 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import com.example.pawel.sniper.R;
+import com.example.pawel.sniper.tabs.Tab2Projects;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
-/**
- * Created by pawel on 24.05.2017.
- */
 
-public class Adapter3 extends RecyclerView.Adapter {
+public class AdapterForProjects extends RecyclerView.Adapter {
 
     static List<String> nameProject = new ArrayList<String>();
     static List<String> descriptionProject = new ArrayList<String>();
@@ -38,8 +29,7 @@ public class Adapter3 extends RecyclerView.Adapter {
     private RecyclerView mRecyclerView;
 
     // implementacja wzorca ViewHolder
-    // każdy obiekt tej klasy przechowuje odniesienie do layoutu elementu listy
-    // dzięki temu wywołujemy findViewById() tylko raz dla każdego elementu
+
     private class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mContent;
@@ -53,7 +43,7 @@ public class Adapter3 extends RecyclerView.Adapter {
     }
 
     // konstruktor adaptera
-    public Adapter3(RecyclerView pRecyclerView){
+    public AdapterForProjects(RecyclerView pRecyclerView){
         nameProject = Tab2Projects.login;
         descriptionProject = Tab2Projects.name;
         mRecyclerView = pRecyclerView;
@@ -69,14 +59,14 @@ public class Adapter3 extends RecyclerView.Adapter {
 
 
         // tworzymy i zwracamy obiekt ViewHolder
-        return new Adapter3.MyViewHolder(view);
+        return new AdapterForProjects.MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         // uzupełniamy layout artykułu
-        ((Adapter3.MyViewHolder) viewHolder).mTitle.setText("Właściciel projektu: " +nameProject.get(i));
-        ((Adapter3.MyViewHolder) viewHolder).mContent.setText("Nazwa projektu: " + descriptionProject
+        ((AdapterForProjects.MyViewHolder) viewHolder).mTitle.setText("Właściciel projektu: " +nameProject.get(i));
+        ((AdapterForProjects.MyViewHolder) viewHolder).mContent.setText("Nazwa projektu: " + descriptionProject
                 .get(i));
 
     }

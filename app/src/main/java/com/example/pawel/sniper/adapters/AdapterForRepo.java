@@ -1,4 +1,4 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.pawel.sniper.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,7 @@ public class AdapterForRepo extends RecyclerView.Adapter
     private RecyclerView mRecyclerView;
 
     // implementacja wzorca ViewHolder
-    // każdy obiekt tej klasy przechowuje odniesienie do layoutu elementu listy
-    // dzięki temu wywołujemy findViewById() tylko raz dla każdego elementu
+
     private class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public TextView mContent;
@@ -53,19 +54,14 @@ public class AdapterForRepo extends RecyclerView.Adapter
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.activity_specification_about_user_project, viewGroup, false);
 
-        // dla elementu listy ustawiamy obiekt OnClickListener,
-        // który usunie element z listy po kliknięciu na niego
         view.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // odnajdujemy indeks klikniętego elementu
+
                 int positionToDelete = mRecyclerView.getChildAdapterPosition(v);
-                // usuwamy element ze źródła danych
-                //items.remove(positionToDelete);
-                // poniższa metoda w animowany sposób usunie element z listy
-                // notifyItemRemoved(positionToDelete);
+
             }
         });
 

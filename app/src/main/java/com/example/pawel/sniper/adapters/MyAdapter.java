@@ -1,21 +1,19 @@
-package com.example.pawel.sniper;
+package com.example.pawel.sniper.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import com.example.pawel.sniper.R;
+import com.example.pawel.sniper.retrofit.MyWebService;
+import com.example.pawel.sniper.retrofit.pojo.repoSource;
+import com.example.pawel.sniper.recycler_view_model.RecycleForProject;
+import com.example.pawel.sniper.tabs.Tab1Users;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,14 +24,12 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
 public class MyAdapter extends RecyclerView.Adapter
 {
 
-    static List<String> nameProject = new ArrayList<String>();
-    static List<String> descriptionProject = new ArrayList<String>();
-    static List<String> urlPic = new ArrayList<String>();
+    public static List<String> nameProject = new ArrayList<String>();
+    public static List<String> descriptionProject = new ArrayList<String>();
+    public static List<String> urlPic = new ArrayList<String>();
     public static ImageView imageView ;
 
     public Context context;
@@ -73,16 +69,13 @@ public class MyAdapter extends RecyclerView.Adapter
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.select_user_layout, viewGroup, false);
 
-        // dla elementu listy ustawiamy obiekt OnClickListener,
-        // który usunie element z listy po kliknięciu na niego
         view.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // odnajdujemy indeks klikniętego elementu
-                int positionToDelete = mRecyclerView.getChildAdapterPosition(v);
 
+                int positionToDelete = mRecyclerView.getChildAdapterPosition(v);
 
                 // tag, który jest wykorzystany do logowania
                 final String CLASS_TAG = "MainActivity";
@@ -122,7 +115,7 @@ public class MyAdapter extends RecyclerView.Adapter
                         }
 
                         Intent intent2;
-                        intent2 =  new Intent(context, specificationAboutUserProject.class);
+                        intent2 =  new Intent(context, RecycleForProject.class);
                         context.startActivity(intent2);
                     }
 
@@ -132,12 +125,6 @@ public class MyAdapter extends RecyclerView.Adapter
                     }
                 });
             }
-
-
-            // usuwamy element ze źródła danych
-            //items.remove(positionToDelete);
-            // poniższa metoda w animowany sposób usunie element z listy
-            // notifyItemRemoved(positionToDelete);
 
         });
 
@@ -156,12 +143,6 @@ public class MyAdapter extends RecyclerView.Adapter
         // uzupełniamy layout artykułu
         ((MyViewHolder) viewHolder).mTitle.setText(items.get(i));
 
-//            Glide.with(viewHolder.itemView.getContext())
-//                    .load(urlPic.get(i))
-//                    .override(160, 132)
-//                    .crossFade()
-//                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-//                    .into(imageView);
         try {
             bindView(i);
         } catch(Exception e) {e.printStackTrace();}

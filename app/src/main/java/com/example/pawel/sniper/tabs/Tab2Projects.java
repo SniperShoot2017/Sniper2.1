@@ -1,12 +1,7 @@
-package com.example.pawel.sniper;
-
+package com.example.pawel.sniper.tabs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Process;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pawel.sniper.retrofit.pojo.Owner;
+import com.example.pawel.sniper.retrofit.pojo.Proj;
+import com.example.pawel.sniper.retrofit.pojo.ProjItem;
+import com.example.pawel.sniper.recycler_view_model.RecycleForProjectTab2;
+import com.example.pawel.sniper.R;
+import com.example.pawel.sniper.retrofit.MyWebService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,26 +27,25 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class Tab1Users  extends Fragment
+public class Tab2Projects  extends android.support.v4.app.Fragment
 {
-    Button btn ;
-    static List<String> nameAllUsers = new ArrayList<String>();
-    static List<String> urlPic = new ArrayList<String>();
-    public EditText editText;
 
+    Button btn ;
+    public static List<String> login = new ArrayList<String>();
+    public static List<String> name = new ArrayList<String>();
+    public EditText editText;
     ProgressBar secondBar = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        View rootView = inflater.inflate(R.layout.tab1_users, container, false);
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.tab2_project, container, false);
 
-        btn = (Button)rootView.findViewById(R.id.zatwierdz);
-        editText = (EditText)rootView.findViewById(R.id.userName);
-        secondBar = (ProgressBar)rootView.findViewById(R.id.progressBar);
+        btn = (Button)rootView.findViewById(R.id.szukaj);
+        editText = (EditText)rootView.findViewById(R.id.eT2);
+        secondBar = (ProgressBar)rootView.findViewById(R.id.pb2);
 
-        btn.findViewById(R.id.zatwierdz).setOnClickListener(new View.OnClickListener()
+        btn.findViewById(R.id.szukaj).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -74,24 +73,26 @@ public class Tab1Users  extends Fragment
                 myWebService = retrofit.create(MyWebService.class);
 
                 //obsluga przyciskow ekranu
-                    String userName = null;
-                     userName = "users?q="+ editText.getText().toString();
 
-                myWebService.getData(userName, new Callback<UserSelection>() {
+                final String userName = "repositories?q="+ editText.getText().toString();
+
+                myWebService.getPro(userName, new Callback<Proj>() {
                     @Override
-                    public void success(UserSelection userSelection, Response response)
+                    public void success(Proj proj, Response response)
                     {
-                        List<Item> items = null;
-                        int totalCount = userSelection.getTotalCount();
-                        items = new ArrayList<Item>();
-                        items = userSelection.getItems();
 
-                        Item ite  = null  ;
-                        ite = items.get(0);
-                        String asd = null;
-                        ite.getLogin();
+                        login.clear();
+                        name.clear();
 
-                        Item it = null;
+                        int totalCount = proj.getTotalCount();
+                        List<ProjItem> items = new ArrayList<ProjItem>();
+                        items = proj.getItems();
+
+                        ProjItem ite = items.get(0);
+                        String asd = ite.getName();
+
+                        Owner it = null;
+                        it = ite.getOwner();
                         switch (totalCount) {
                             case 0:
                                 Context context = getActivity();
@@ -102,21 +103,21 @@ public class Tab1Users  extends Fragment
                                 break;
 
                             case 1:
-                                it = items.get(0);
-                                nameAllUsers.add(it.getLogin());
-                                urlPic.add(it.getAvatarUrl());
+                                name.add(ite.getName());
+                                login.add(it.getLogin());
                                 break;
 
                             default:
-                                for (int i = 0; i < userSelection.getItems().size(); i++) {
-                                    it = items.get(i);
-                                    nameAllUsers.add(it.getLogin());
-                                    urlPic.add(it.getAvatarUrl());
+                                for (int i = 0; i < items.size(); i++) {
+                                    ite = items.get(i);
+                                    it = ite.getOwner();
+                                    name.add(ite.getName());
+                                    login.add(it.getLogin());
                                 }
                                 break;
                         }
                         turnOnProcessBar(false);
-                        Intent intent = new Intent(getActivity(), Main2Activity.class);
+                        Intent intent = new Intent(getActivity(), RecycleForProjectTab2.class);
                         startActivity(intent);
                     }
                     @Override
@@ -126,6 +127,7 @@ public class Tab1Users  extends Fragment
                 });
             }
         });
+
         return rootView;
     }
 
@@ -138,6 +140,6 @@ public class Tab1Users  extends Fragment
         else  secondBar.setVisibility(View.GONE);
     }
 
+
+
 }
-
-
