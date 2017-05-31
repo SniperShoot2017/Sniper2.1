@@ -167,7 +167,6 @@ public class MyAdapter extends RecyclerView.Adapter
         } catch(Exception e) {e.printStackTrace();}
     }
 
-
     @Override
     public int getItemCount() {
         return items.size();

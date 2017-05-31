@@ -19,8 +19,6 @@ public class specificationAboutUserProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_look);
 
-        // test = getIntent().getStringArrayListExtra("test");
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.items);
         // w celach optymalizacji
         recyclerView.setHasFixedSize(true);

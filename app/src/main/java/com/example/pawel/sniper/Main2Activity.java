@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.view.View;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -30,17 +31,12 @@ public class Main2Activity extends AppCompatActivity {
         // ustawiamy LayoutManagera
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        recyclerView.setItemViewCacheSize(30);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
         // ustawiamy animatora, który odpowiada za animację dodania/usunięcia elementów listy
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        // tworzymy adapter oraz łączymy go z RecyclerView
-
-//        recyclerView.addOnScrollListener(new OnScrollListener() {
-//                                             @Override
-//                                             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                                                 super.onScrollStateChanged(recyclerView, newState);
-//                                             }
-//                                         }
 
         recyclerView.setAdapter(new MyAdapter(Tab1Users.nameAllUsers, recyclerView));
 
